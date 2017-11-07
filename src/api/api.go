@@ -5,18 +5,21 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"gitlab/nefco/mail-service/src/mail"
+	"gitlab/nefco/mail-service/src/services"
 )
 
 type API struct {
 	address string
-	mail mail.Mail
+	services *services.Services
 }
 
-func NewApi(address string) {
+func NewApi(
+	services *services.Services,
+	address string,
+) {
 	api := &API{
 		address,
-		mail.NewMail(),
+		services,
 	}
 
 	e := echo.New()

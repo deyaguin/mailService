@@ -3,8 +3,9 @@ package api
 import (
 	"net/http"
 
-	"github.com/labstack/echo"
 	"gitlab/nefco/mail-service/src/models"
+
+	"github.com/labstack/echo"
 )
 
 func (api *API) SendMail(c echo.Context) error {
@@ -14,7 +15,9 @@ func (api *API) SendMail(c echo.Context) error {
 		return err
 	}
 
-	api.mail.Send(msg)
+	if err := api.services.Mail.Send(msg); err != nil {
+		return c.JSON(http.StatusNoContent, "failed")
+	}
 
 	return c.JSON(http.StatusOK, "successfully")
 }

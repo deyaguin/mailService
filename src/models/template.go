@@ -1,5 +1,8 @@
 package models
 
+import "github.com/matcornic/hermes"
+
 type Template struct {
-	params []interface{}
+	Product hermes.Product
+	Email   hermes.Email
 }

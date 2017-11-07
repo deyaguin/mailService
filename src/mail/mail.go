@@ -7,8 +7,6 @@ import (
 
 	"log"
 
-	"fmt"
-
 	"github.com/domodwyer/mailyak"
 	"github.com/matcornic/hermes"
 )
@@ -17,62 +15,71 @@ type Mail interface {
 	Send(message *models.Message) error
 }
 
-type Client struct {
-	mail   *mailyak.MailYak
-	hermes hermes.Hermes
+type mail struct {
+	client *mailyak.MailYak
 }
 
 func NewMail() Mail {
-	hermes := hermes.Hermes{
-		// Optional Theme
-		// Theme: new(Default)
-		Product: hermes.Product{
-			// Appears in header & footer of e-mails
-			Name: "Hermes",
-			Link: "https://example-hermes.com/",
-			// Optional product logo
-			Logo: "http://www.duchess-france.org/wp-content/uploads/2016/01/gopher.png",
-		},
-	}
-	mail := mailyak.New("smtp.gmail.com:465", smtp.PlainAuth("", "leagre2010@gmail.com", "GolangReact2017", "smtp.gmail.com"))
-	return &Client{mail, hermes}
+	mail := mailyak.New(
+		"smtp.gmail.com:587",
+		smtp.PlainAuth(
+			"",
+			"leagre2010@gmail.com",
+			"GolangReact2017",
+			"smtp.gmail.com",
+		),
+	)
+	return &mail{mail}
 }
 
-func (c *Client) Send(msg *models.Message) error {
+func (c *mail) Send(msg *models.Message) error {
+	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+	h := hermes.Hermes{
+		Product: hermes.Product{
+			Name:      "Nefco",
+			Link:      "nefco.ru",
+			Copyright: "Nefco",
+		},
+	}
 	email := hermes.Email{
 		Body: hermes.Body{
-			FreeMarkdown: `
-			> _Hermes_ service will shutdown the **1st August 2017** for maintenance operations.
-
-			Services will be unavailable based on the following schedule:
-
-			| Services | Downtime |
-			| :------:| :-----------: |
-			| Service A | 2AM to 3AM |
-			| Service B | 4AM to 5AM |
-			| Service C | 5AM to 6AM |
-
-			---
-
-			Feel free to contact us for any question regarding this matter at [support@hermes-example.com](mailto:support@hermes-example.com) or in our [Gitter](https://gitter.im/)
-
-			`,
+			Name: "Jon Snow",
+			Intros: []string{
+				"Welcome to Hermes! We're very excited to have you on board.",
+			},
+			Dictionary: []hermes.Entry{
+				{Key: "Firstname", Value: "Jon"},
+				{Key: "Lastname", Value: "Snow"},
+				{Key: "Birthday", Value: "01/01/283"},
+			},
+			Actions: []hermes.Action{
+				{
+					Instructions: "To get started with Hermes, please click here:",
+					Button: hermes.Button{
+						Text: "Confirm your account",
+						Link: "https://hermes-example.com/confirm?token=d9729feb74992cc3482b350163a1a010",
+					},
+				},
+			},
+			Outros: []string{
+				"Need help, or have questions? Just reply to this email, we'd love to help.",
+			},
 		},
 	}
 
-	emailBody, err := c.hermes.GenerateHTML(email)
+	emailBody, err := h.GenerateHTML(email)
 	if err != nil {
-		log.Println(err)
+		log.Panic(err)
 	}
 
-	c.mail.To(msg.To)
-	c.mail.From(msg.From)
-	c.mail.Plain().Set(emailBody)
-	c.mail.HTML().Set("Don't panic")
-	fmt.Println(c.mail)
+	c.client.To(msg.To)
+	c.client.From(msg.From)
+	c.client.Subject("test")
+	c.client.Plain().Set(mime)
+	c.client.HTML().Set(emailBody)
 
-	if err := c.mail.Send(); err != nil {
-		log.Println(err)
+	if err := c.client.Send(); err != nil {
+		log.Panic(err)
 	}
 
 	return nil
