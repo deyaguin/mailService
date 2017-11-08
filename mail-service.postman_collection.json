@@ -1,0 +1,38 @@
+{
+	"id": "564f8a31-8f92-c011-38b3-aae973bbfe4c",
+	"name": "mail-service",
+	"description": "",
+	"order": [
+		"a1fe2fe1-e9bc-c4a7-760a-6ca1b1dade79"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1510036546444,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "a1fe2fe1-e9bc-c4a7-760a-6ca1b1dade79",
+			"headers": "",
+			"headerData": [],
+			"url": "",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "564f8a31-8f92-c011-38b3-aae973bbfe4c",
+			"data": null,
+			"dataMode": "params",
+			"name": "send-mail",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1510036568055,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}

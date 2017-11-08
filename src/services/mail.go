@@ -1,4 +1,4 @@
-package mail
+package services
 
 import (
 	"net/smtp"
@@ -16,7 +16,7 @@ type Mail interface {
 }
 
 type mail struct {
-	client *mailyak.MailYak
+	mail *mailyak.MailYak
 }
 
 func NewMail() Mail {
@@ -33,7 +33,11 @@ func NewMail() Mail {
 }
 
 func (c *mail) Send(msg *models.Message) error {
-	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+	const mime = "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+
+	var err error
+	var emailBody string
+
 	h := hermes.Hermes{
 		Product: hermes.Product{
 			Name:      "Nefco",
@@ -67,18 +71,23 @@ func (c *mail) Send(msg *models.Message) error {
 		},
 	}
 
-	emailBody, err := h.GenerateHTML(email)
+	if msg.Type == "html" {
+		emailBody, err = h.GenerateHTML(email)
+	} else {
+		emailBody, err = h.GeneratePlainText(email)
+	}
+
 	if err != nil {
 		log.Panic(err)
 	}
 
-	c.client.To(msg.To)
-	c.client.From(msg.From)
-	c.client.Subject("test")
-	c.client.Plain().Set(mime)
-	c.client.HTML().Set(emailBody)
+	c.mail.To(msg.To)
+	c.mail.From(msg.From)
+	c.mail.Subject("test")
+	c.mail.Plain().Set(mime)
+	c.mail.HTML().Set(emailBody)
 
-	if err := c.client.Send(); err != nil {
+	if err := c.mail.Send(); err != nil {
 		log.Panic(err)
 	}
 
