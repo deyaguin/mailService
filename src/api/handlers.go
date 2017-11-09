@@ -15,7 +15,7 @@ func (api *API) SendMail(c echo.Context) error {
 		return err
 	}
 
-	if err := api.services.Mail.Send(msg); err != nil {
+	if err := api.services.MailService.Send(msg); err != nil {
 		return c.JSON(http.StatusNoContent, "failed")
 	}
 

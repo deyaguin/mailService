@@ -3,13 +3,14 @@ package api
 import (
 	"log"
 
+	"gitlab/nefco/mail-service/src/services"
+
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"gitlab/nefco/mail-service/src/services"
 )
 
 type API struct {
-	address string
+	address  string
 	services *services.Services
 }
 
@@ -31,7 +32,7 @@ func NewApi(
 	err := e.Start(api.address)
 	if err != nil {
 		log.Fatal(
-			"API start failed",
+			err,
 		)
 	}
 

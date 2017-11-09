@@ -40,3 +40,7 @@
 [[constraint]]
   branch = "master"
   name = "github.com/Azure/go-ntlmssp"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/signintech/gopdf"

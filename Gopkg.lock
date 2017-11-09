@@ -2,12 +2,6 @@
 
 
 [[projects]]
-  branch = "master"
-  name = "github.com/Azure/go-ntlmssp"
-  packages = ["."]
-  revision = "c92175d540060095c69ced311f76aea56c83ecdb"
-
-[[projects]]
   name = "github.com/Masterminds/semver"
   packages = ["."]
   revision = "15d8430ab86497c5c0da827b748823945e1cf1e1"
@@ -20,12 +14,6 @@
   version = "v2.14.0"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/ThomsonReutersEikon/go-ntlm"
-  packages = ["ntlm","ntlm/md4"]
-  revision = "2a7c173f9e18233a4ae29891da6a0a63637e2d8d"
-
-[[projects]]
   name = "github.com/aokoli/goutils"
   packages = ["."]
   revision = "3391d3790d23d03408670993e957e8f408993c34"
@@ -36,12 +24,6 @@
   packages = ["."]
   revision = "dbeaa9332f19a944acb5736b4456cfcc02140e29"
   version = "v3.1.0"
-
-[[projects]]
-  name = "github.com/domodwyer/mailyak"
-  packages = ["."]
-  revision = "b7bbafddc330ff6022b08350acd04e1a08a8eaba"
-  version = "3.0.0"
 
 [[projects]]
   branch = "master"
@@ -136,7 +118,7 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
-  packages = ["acme","acme/autocert","md4","pbkdf2","scrypt"]
+  packages = ["acme","acme/autocert","pbkdf2","scrypt"]
   revision = "bd6f299fb381e4c3393d1c4b1f0b94f5e77650c8"
 
 [[projects]]
@@ -154,6 +136,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "45d432d6d354c83ee3126dbe4d24a575101589717ead432de788b01d4b3b7990"
+  inputs-digest = "eb6886c70ca8673673c957c24adc865070aa569def17647fdac679ef9596eccf"
   solver-name = "gps-cdcl"
   solver-version = 1

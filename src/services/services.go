@@ -2,12 +2,12 @@ package services
 
 type Services struct {
 	Template
-	Mail
+	MailService
 }
 
 func NewServices(
 	template Template,
-	mail Mail,
+	mail MailService,
 ) *Services {
 	return &Services{
 		template,
